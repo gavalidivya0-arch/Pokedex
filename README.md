@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokéball" width="100"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" alt="Pokémon Logo" width="400"/>
   <h1>Pokédex Web Application</h1>
   <p>A responsive, dynamic Pokédex web application built with the PokéAPI.</p>
 
