@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex | Explore the world of Pokémon</title>
+    <meta name="description" content="A modern, dynamic Pokédex built with the PokéAPI. Search and discover information about your favorite Pokémon.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="pokeball-icon"></div>
+                <h1 class="logo-text">Pokédex</h1>
+            </div>
+            <p class="subtitle">Explore the world of Pokémon</p>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <form id="search-form" class="search-form">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search by Name or ID (e.g. Pikachu or 25)" 
+                        aria-label="Search for a Pokémon"
+                        autocomplete="off"
+                    >
+                </div>
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+            <div id="search-message" class="message-container" aria-live="polite"></div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Loading Overlay -->
+            <div id="loading-state" class="loading-state hidden">
+                <div class="spinner"></div>
+                <p>Loading Pokémon...</p>
+            </div>
+
+            <!-- Pokémon Detail Card -->
+            <article id="pokemon-card" class="pokemon-card hidden">
+                <!-- Header: Image, Name, ID, Types -->
+                <header class="card-header">
+                    <div class="image-container">
+                        <img id="pokemon-image" src="" alt="" class="pokemon-image">
+                    </div>
+                    <div class="title-container">
+                        <span id="pokemon-id" class="pokemon-id">#000</span>
+                        <h2 id="pokemon-name" class="pokemon-name">Loading</h2>
+                        <div id="pokemon-types" class="types-container">
+                            <!-- Types badges will be injected here -->
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Body: Physical, Stats, Abilities, Moves -->
+                <div class="card-body">
+                    <!-- Physical Attributes -->
+                    <div class="physical-attributes">
+                        <div class="attribute">
+                            <span class="attr-label">Height</span>
+                            <span id="pokemon-height" class="attr-value">--</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attr-label">Weight</span>
+                            <span id="pokemon-weight" class="attr-value">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Base Stats -->
+                    <section class="stats-section">
+                        <h3>Base Stats</h3>
+                        <div id="pokemon-stats" class="stats-container">
+                            <!-- Stats bars will be injected here -->
+                        </div>
+                    </section>
+
+                    <!-- Abilities -->
+                    <section class="abilities-section">
+                        <h3>Abilities</h3>
+                        <div id="pokemon-abilities" class="abilities-container">
+                            <!-- Abilities will be injected here -->
+                        </div>
+                    </section>
+
+                    <!-- Moves -->
+                    <section class="moves-section">
+                        <div class="moves-header">
+                            <h3>Moves</h3>
+                            <span class="moves-hint">(Showing first 20)</span>
+                        </div>
+                        <div id="pokemon-moves" class="moves-container">
+                            <!-- Moves will be injected here -->
+                        </div>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Browse / Pagination Section -->
+            <section class="browse-section">
+                <div class="browse-header">
+                    <h2>Browse Pokédex</h2>
+                </div>
+                
+                <div id="pokemon-grid" class="pokemon-grid">
+                    <!-- Grid items injected here -->
+                </div>
+
+                <div class="pagination">
+                    <button id="prev-btn" class="page-btn" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        Previous
+                    </button>
+                    <span id="page-info" class="page-info">Page 1</span>
+                    <button id="next-btn" class="page-btn">
+                        Next
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Data provided by <a href="https://pokeapi.co/" target="_blank" rel="noopener">PokéAPI</a>.</p>
+        </footer>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
