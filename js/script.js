@@ -17,6 +17,11 @@ const speciesCache = new Map();
 let activePokemonId = null;
 
 // --- DOM Elements ---
+const navLinks = document.querySelectorAll('.nav-links a');
+const navSearchBtn = document.getElementById('nav-search-btn');
+const navFavBtn = document.getElementById('nav-fav-btn');
+const navGithubBtn = document.getElementById('nav-github-btn');
+
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const searchMessage = document.getElementById('search-message');
@@ -53,6 +58,43 @@ function setupEventListeners() {
     searchForm.addEventListener('submit', handleSearch);
     prevBtn.addEventListener('click', () => changePage(-1));
     nextBtn.addEventListener('click', () => changePage(1));
+
+    // Navbar Links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            if(e.target.textContent === 'Home') {
+                searchInput.value = '';
+                fetchAndDisplayPokemon(DEFAULT_POKEMON);
+            } else {
+                showError(`${e.target.textContent} section coming soon!`);
+                setTimeout(hideError, 3000);
+            }
+        });
+    });
+
+    // Navbar Actions
+    if(navSearchBtn) {
+        navSearchBtn.addEventListener('click', () => {
+            searchInput.focus();
+        });
+    }
+
+    if(navFavBtn) {
+        navFavBtn.addEventListener('click', () => {
+            showError('Favorites feature coming soon!');
+            setTimeout(hideError, 3000);
+        });
+    }
+
+    if(navGithubBtn) {
+        navGithubBtn.addEventListener('click', () => {
+            window.open('https://github.com/gavalidivya0-arch/Pok-dex', '_blank');
+        });
+    }
 }
 
 // --- API Functions ---
