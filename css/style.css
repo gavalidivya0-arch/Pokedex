@@ -905,6 +905,7 @@ button {
     width: 100%;
     max-width: 1400px;
     flex: 1;
+    min-height: 0;
     margin: 0 auto;
     padding: 0 2rem 2rem 2rem;
     display: flex;
