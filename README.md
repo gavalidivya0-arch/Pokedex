@@ -82,8 +82,3 @@ Building this project solidifies the following web development concepts:
 - ✅ Handling loading states and error states gracefully in the UI.
 - ✅ Building responsive UI components without relying on external CSS frameworks.
 - ✅ Implementing basic client-side data caching (`Map`).
-
----
-<div align="center">
-  <p>Data provided by <a href="https://pokeapi.co/">PokéAPI</a>.</p>
-</div>
