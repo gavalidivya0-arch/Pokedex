@@ -1573,3 +1573,309 @@ button {
     .features-title { font-size: 2rem; }
     .banner-inner { padding: 0.75rem 2rem; font-size: 0.8rem; }
 }
+
+/* =========================================
+   ABOUT VIEW
+========================================= */
+.about-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    flex: 1;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 0 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+.about-wrapper::-webkit-scrollbar { width: 6px; }
+.about-wrapper::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+.about-header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background: transparent;
+}
+
+.about-header-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.about-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.about-title-row h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+}
+.red-text {
+    color: var(--pokedex-red);
+}
+.about-title-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 0.5rem;
+}
+
+.about-tagline {
+    font-family: var(--font-display);
+    color: var(--text-yellow);
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.about-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.about-mini-cards {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.about-mini-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    flex: 1;
+    max-width: 250px;
+}
+
+.about-mini-icon {
+    background: rgba(255, 203, 5, 0.1);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-mini-text h4 {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+}
+.about-mini-text p {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
+.about-header-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.about-pikachu {
+    max-height: 350px;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+    animation: float 6s ease-in-out infinite;
+}
+
+.about-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 0 2rem;
+}
+
+.about-col-left, .about-col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.about-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.mission-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.mission-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+.mission-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    max-width: 90%;
+    line-height: 1.5;
+}
+
+.api-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.api-card-top {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+.pokeapi-logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: #FFCB05;
+    letter-spacing: -1px;
+}
+.pokeapi-logo span {
+    color: #3B4CCA;
+}
+.api-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.api-features {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+.api-feat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.section-label-about {
+    font-size: 0.75rem;
+    color: var(--text-yellow);
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.tech-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tech-icons {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 0.5rem;
+}
+.tech-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+.tech-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: white;
+}
+.html-box { background: #E34F26; }
+.css-box { background: #1572B6; }
+.js-box { background: #F7DF1E; color: black; }
+.tech-item span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.connect-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--panel-bg) 0%, rgba(18, 22, 32, 0.8) 100%);
+    border: 1px solid var(--border-color);
+}
+.connect-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    flex: 1;
+}
+.connect-info p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+.github-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--text-yellow);
+    color: var(--text-yellow);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.github-btn:hover {
+    background: rgba(255, 203, 5, 0.1);
+}
+.connect-image {
+    padding-left: 2rem;
+}
+.connect-pokeball {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+}
+
+.about-footer {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 2rem 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}

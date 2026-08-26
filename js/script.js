@@ -69,19 +69,27 @@ function setupEventListeners() {
             if(e.target.textContent === 'Home') {
                 document.getElementById('explore-view').classList.add('hidden');
                 document.getElementById('features-view').classList.add('hidden');
+                document.getElementById('about-view').classList.add('hidden');
                 document.getElementById('home-view').classList.remove('hidden');
                 searchInput.value = '';
                 fetchAndDisplayPokemon(DEFAULT_POKEMON);
             } else if (e.target.textContent === 'Explore') {
                 document.getElementById('home-view').classList.add('hidden');
                 document.getElementById('features-view').classList.add('hidden');
+                document.getElementById('about-view').classList.add('hidden');
                 document.getElementById('explore-view').classList.remove('hidden');
                 if (window.initExplore) window.initExplore();
                 if (window.showExplore) window.showExplore();
             } else if (e.target.textContent === 'Features') {
                 document.getElementById('home-view').classList.add('hidden');
                 document.getElementById('explore-view').classList.add('hidden');
+                document.getElementById('about-view').classList.add('hidden');
                 document.getElementById('features-view').classList.remove('hidden');
+            } else if (e.target.textContent === 'About') {
+                document.getElementById('home-view').classList.add('hidden');
+                document.getElementById('explore-view').classList.add('hidden');
+                document.getElementById('features-view').classList.add('hidden');
+                document.getElementById('about-view').classList.remove('hidden');
             } else {
                 showError(`${e.target.textContent} section coming soon!`);
                 setTimeout(hideError, 3000);
