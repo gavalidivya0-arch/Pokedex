@@ -144,7 +144,7 @@ async function fetchInitialExploreData() {
                 id: id,
                 name: p.name,
                 url: p.url,
-                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
                 types: [] // We'll lazy load or fetch types in batch
             };
         });
