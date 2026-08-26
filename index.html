@@ -8,133 +8,181 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="header">
+    <div class="page-wrapper">
+        
+        <!-- Left Column: Landing Info -->
+        <aside class="landing-info">
             <div class="logo-container">
-                <div class="pokeball-icon"></div>
-                <h1 class="logo-text">Pokédex</h1>
+                <h1 class="logo-text">P<div class="pokeball-icon-inline"></div>KÉDEX</h1>
+                <p class="tagline">EXPLORE • DISCOVER • CATCH</p>
             </div>
-            <p class="subtitle">Explore the world of Pokémon</p>
-        </header>
+            
+            <p class="description">
+                A modern Pokédex web application built with Vanilla JavaScript and powered by <span class="highlight">PokéAPI</span>.
+            </p>
 
-        <!-- Search Section -->
-        <section class="search-section">
-            <form id="search-form" class="search-form">
-                <div class="search-input-wrapper">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        class="search-input" 
-                        placeholder="Search by Name or ID (e.g. Pikachu or 25)" 
-                        aria-label="Search for a Pokémon"
-                        autocomplete="off"
-                    >
+            <ul class="features-list">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span>Search Pokémon by name or ID</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+                    <span>View stats, types, abilities & moves</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M7 16l-4-4 4-4"></path><path d="M17 8l4 4-4 4"></path></svg>
+                    <span>Pagination with Next / Prev</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    <span>Responsive & Accessible</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <span>Fast, Clean & User Friendly UI</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Right Column: App Wrapper -->
+        <main class="app-wrapper">
+            
+            <!-- App Header -->
+            <header class="app-header">
+                <div class="small-logo">
+                    <div class="pokeball-icon-small"></div>
+                    <h2>POKÉDEX</h2>
                 </div>
-                <button type="submit" class="search-btn">Search</button>
-            </form>
-            <div id="search-message" class="message-container" aria-live="polite"></div>
-        </section>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
+                
+                <form id="search-form" class="search-form">
+                    <div class="search-input-wrapper">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            class="search-input" 
+                            placeholder="Search Pokémon by name or ID..." 
+                            aria-label="Search for a Pokémon"
+                            autocomplete="off"
+                        >
+                        <button type="submit" class="search-icon-btn" aria-label="Search">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </div>
+                    <button type="submit" class="search-btn">Search</button>
+                </form>
+            </header>
+            
             <!-- Loading Overlay -->
             <div id="loading-state" class="loading-state hidden">
                 <div class="spinner"></div>
-                <p>Loading Pokémon...</p>
+                <p>Loading...</p>
             </div>
+            
+            <div id="search-message" class="message-container" aria-live="polite"></div>
 
-            <!-- Pokémon Detail Card -->
-            <article id="pokemon-card" class="pokemon-card hidden">
-                <!-- Header: Image, Name, ID, Types -->
-                <header class="card-header">
-                    <div class="image-container">
+            <!-- App Content Area (Two panes) -->
+            <div id="app-content" class="app-content hidden">
+                
+                <!-- Left Pane: Sidebar List -->
+                <section class="pokemon-list-sidebar">
+                    <div class="list-header">
+                        <div class="dropdown-mock">
+                            <span>Showing 20</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    
+                    <div id="pokemon-list" class="pokemon-list">
+                        <!-- List items injected here -->
+                    </div>
+
+                    <div class="pagination">
+                        <button id="prev-btn" class="page-btn" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            Prev
+                        </button>
+                        <span id="page-info" class="page-info">1 / 20</span>
+                        <button id="next-btn" class="page-btn">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Right Pane: Detail View -->
+                <section id="pokemon-detail-view" class="pokemon-detail-view">
+                    
+                    <div class="detail-top-bar">
+                        <div class="identity">
+                            <span id="pokemon-id" class="pokemon-id">#000</span>
+                            <h2 id="pokemon-name" class="pokemon-name">Loading</h2>
+                            <span id="pokemon-category" class="pokemon-category">Loading...</span>
+                        </div>
+                        <div class="attributes">
+                            <div class="types-section">
+                                <span class="section-label">TYPES</span>
+                                <div id="pokemon-types" class="types-container">
+                                    <!-- Types badges -->
+                                </div>
+                            </div>
+                            <div class="physical-section">
+                                <div class="attribute">
+                                    <span class="section-label">HEIGHT</span>
+                                    <span id="pokemon-height" class="attr-value">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
+                                        --
+                                    </span>
+                                </div>
+                                <div class="attribute">
+                                    <span class="section-label">WEIGHT</span>
+                                    <span id="pokemon-weight" class="attr-value">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                        --
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-image-container">
+                        <div class="image-shadow"></div>
                         <img id="pokemon-image" src="" alt="" class="pokemon-image">
                     </div>
-                    <div class="title-container">
-                        <span id="pokemon-id" class="pokemon-id">#000</span>
-                        <h2 id="pokemon-name" class="pokemon-name">Loading</h2>
-                        <div id="pokemon-types" class="types-container">
-                            <!-- Types badges will be injected here -->
+
+                    <div class="detail-bottom-grid">
+                        <div class="stats-card">
+                            <span class="section-label">STATS</span>
+                            <div id="pokemon-stats" class="stats-container">
+                                <!-- Stats bars -->
+                            </div>
+                        </div>
+                        
+                        <div class="abilities-moves-col">
+                            <div class="abilities-card">
+                                <span class="section-label">ABILITIES</span>
+                                <div id="pokemon-abilities" class="abilities-container">
+                                    <!-- Abilities -->
+                                </div>
+                            </div>
+                            
+                            <div class="moves-card">
+                                <span class="section-label">MOVES</span>
+                                <div id="pokemon-moves" class="moves-container">
+                                    <!-- Moves -->
+                                </div>
+                                <button class="view-all-btn">View All (20)</button>
+                            </div>
                         </div>
                     </div>
-                </header>
 
-                <!-- Body: Physical, Stats, Abilities, Moves -->
-                <div class="card-body">
-                    <!-- Physical Attributes -->
-                    <div class="physical-attributes">
-                        <div class="attribute">
-                            <span class="attr-label">Height</span>
-                            <span id="pokemon-height" class="attr-value">--</span>
-                        </div>
-                        <div class="attribute">
-                            <span class="attr-label">Weight</span>
-                            <span id="pokemon-weight" class="attr-value">--</span>
-                        </div>
-                    </div>
-
-                    <!-- Base Stats -->
-                    <section class="stats-section">
-                        <h3>Base Stats</h3>
-                        <div id="pokemon-stats" class="stats-container">
-                            <!-- Stats bars will be injected here -->
-                        </div>
-                    </section>
-
-                    <!-- Abilities -->
-                    <section class="abilities-section">
-                        <h3>Abilities</h3>
-                        <div id="pokemon-abilities" class="abilities-container">
-                            <!-- Abilities will be injected here -->
-                        </div>
-                    </section>
-
-                    <!-- Moves -->
-                    <section class="moves-section">
-                        <div class="moves-header">
-                            <h3>Moves</h3>
-                            <span class="moves-hint">(Showing first 20)</span>
-                        </div>
-                        <div id="pokemon-moves" class="moves-container">
-                            <!-- Moves will be injected here -->
-                        </div>
-                    </section>
-                </div>
-            </article>
-
-            <!-- Browse / Pagination Section -->
-            <section class="browse-section">
-                <div class="browse-header">
-                    <h2>Browse Pokédex</h2>
-                </div>
-                
-                <div id="pokemon-grid" class="pokemon-grid">
-                    <!-- Grid items injected here -->
-                </div>
-
-                <div class="pagination">
-                    <button id="prev-btn" class="page-btn" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                        Previous
-                    </button>
-                    <span id="page-info" class="page-info">Page 1</span>
-                    <button id="next-btn" class="page-btn">
-                        Next
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </button>
-                </div>
-            </section>
+                </section>
+            </div>
         </main>
-
-        <footer class="footer">
-            <p>Data provided by <a href="https://pokeapi.co/" target="_blank" rel="noopener">PokéAPI</a>.</p>
-        </footer>
     </div>
     
     <script src="js/script.js"></script>
