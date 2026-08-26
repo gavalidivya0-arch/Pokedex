@@ -1264,3 +1264,312 @@ button {
     justify-content: center;
     z-index: 10;
 }
+
+/* =========================================
+   FEATURES VIEW
+========================================= */
+.features-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    flex: 1;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 0 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: auto;
+    position: relative;
+}
+.features-wrapper::-webkit-scrollbar { width: 6px; }
+.features-wrapper::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+.features-header {
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 2;
+}
+.features-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 0.5rem;
+}
+.features-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Background Pokeballs */
+.bg-decoration {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png');
+    background-size: cover;
+    opacity: 0.03;
+    z-index: 0;
+    pointer-events: none;
+}
+.bg-decoration.top-right {
+    top: -50px;
+    right: -50px;
+    transform: rotate(15deg);
+}
+.bg-decoration.bottom-left {
+    bottom: 100px;
+    left: -50px;
+    transform: rotate(-15deg);
+}
+
+.features-grid-top {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    z-index: 2;
+}
+
+.features-grid-bottom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    z-index: 2;
+}
+
+.feature-card {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    border-color: rgba(255,255,255,0.15);
+}
+
+.feature-icon-wrapper {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.feature-icon-wrapper svg {
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+}
+.feature-pikachu {
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+.feature-pokeball-large {
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.feature-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+.feature-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* Mock UIs inside cards */
+.mock-ui {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Card 1: Search */
+.mock-search {
+    justify-content: space-between;
+}
+.mock-search .mock-text {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* Card 2: Details */
+.mock-details {
+    gap: 0.5rem;
+}
+.mock-badge {
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.mock-stats {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+/* Card 3: Stats */
+.mock-chart {
+    align-items: flex-end;
+    gap: 6px;
+    padding-bottom: 10px;
+}
+.mock-chart .bar {
+    width: 12px;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.mock-stat-bar {
+    gap: 0.5rem;
+}
+.mock-stat-bar .stat-lbl { font-size: 0.7rem; font-weight: 700; }
+.mock-stat-bar .stat-val { font-size: 0.7rem; font-weight: 700; }
+.mock-stat-bar .progress-bg {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.mock-stat-bar .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+}
+
+/* Card 4: Types */
+.mock-types {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.type-circle {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.mock-badges {
+    gap: 0.5rem;
+}
+.mock-badge-outline {
+    font-size: 0.6rem; font-weight: 700;
+    padding: 2px 6px; border-radius: 10px; border: 1px solid;
+    background: rgba(0,0,0,0.3);
+}
+
+/* Card 5: Abilities */
+.mock-abilities {
+    gap: 0.5rem;
+}
+.mock-pill {
+    font-size: 0.7rem; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 4px;
+    padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Card 6: Pagination */
+.mock-nav-icons { gap: 10px; }
+.nav-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+.nav-circle.dark { background: rgba(255,255,255,0.1); }
+.nav-circle.red { background: var(--pokedex-red); box-shadow: 0 0 10px rgba(227,53,13,0.5); }
+.mock-pagination {
+    gap: 4px; font-size: 0.7rem; color: var(--text-secondary);
+}
+.page-btn, .nav-btn {
+    padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.05);
+}
+.page-btn.active, .nav-btn.active {
+    background: var(--pokedex-red); color: white;
+}
+
+/* Card 7: Favs */
+.mock-favs { gap: 6px; }
+.fav-icon-box {
+    width: 24px; height: 24px; border-radius: 4px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+}
+.fav-icon-box img { width: 100%; height: 100%; object-fit: contain; }
+.fav-icon-box.add-fav { color: var(--text-secondary); font-weight: bold; }
+
+/* Card 8: Responsive */
+.mock-devices { align-items: flex-end; gap: 10px; }
+.device {
+    border: 2px solid var(--text-secondary);
+    border-radius: 4px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.device.desktop { width: 48px; height: 32px; position: relative; margin-bottom: 8px;}
+.device.desktop .screen { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; }
+.device.desktop .stand { position: absolute; top:100%; width: 8px; height: 6px; background: var(--text-secondary); }
+.device.desktop .base { position: absolute; top:calc(100% + 6px); width: 20px; height: 2px; background: var(--text-secondary); }
+.device.phone { width: 16px; height: 24px; border-radius: 2px; }
+.device.phone .screen { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; }
+.mock-device-icons { gap: 1rem; }
+
+/* Card 9: Powered By */
+.mock-api { justify-content: center; }
+.api-pill {
+    font-size: 0.7rem; color: var(--text-yellow);
+    border: 1px solid var(--text-yellow); padding: 4px 10px; border-radius: 12px;
+}
+
+/* Banner */
+.features-banner {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    z-index: 2;
+}
+.banner-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(90deg, rgba(227,53,13,0) 0%, rgba(227,53,13,0.8) 50%, rgba(227,53,13,0) 100%);
+    padding: 0.75rem 4rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Responsive Features */
+@media (max-width: 1200px) {
+    .features-grid-top { grid-template-columns: repeat(3, 1fr); }
+    .features-grid-bottom { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .features-grid-top, .features-grid-bottom { grid-template-columns: 1fr; }
+    .features-title { font-size: 2rem; }
+    .banner-inner { padding: 0.75rem 2rem; font-size: 0.8rem; }
+}
