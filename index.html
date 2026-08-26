@@ -41,7 +41,7 @@
         </div>
     </nav>
 
-    <div class="page-wrapper">
+    <div class="page-wrapper" id="home-view">
         <!-- Left Column: Landing Info -->
         <aside class="landing-info">
             <div class="logo-container">
@@ -212,7 +212,117 @@
             </div>
         </main>
     </div>
-    
+
+    <!-- Explore View -->
+    <div class="explore-wrapper hidden" id="explore-view">
+        <header class="explore-header">
+            <div class="explore-title-area">
+                <h2>EXPLORE POKÉMON</h2>
+                <p>Browse and discover Pokémon from the entire Pokédex.</p>
+            </div>
+            <div class="explore-controls">
+                <div class="control-group">
+                    <label>Sort by:</label>
+                    <select id="sort-select">
+                        <option value="id-asc">Pokédex Number (ASC)</option>
+                        <option value="id-desc">Pokédex Number (DESC)</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                    </select>
+                </div>
+                <div class="control-group view-toggles">
+                    <label>View:</label>
+                    <button class="view-btn active" title="Grid View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    </button>
+                    <button class="view-btn" title="List View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="control-group">
+                    <select id="per-page-select">
+                        <option value="20">Showing 20 per page</option>
+                        <option value="50">Showing 50 per page</option>
+                        <option value="100">Showing 100 per page</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <div class="explore-content">
+            <!-- Sidebar Filters -->
+            <aside class="filters-sidebar">
+                <h3>FILTERS <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg></h3>
+                
+                <div class="filter-group">
+                    <label>SEARCH</label>
+                    <div class="search-input-wrapper explore-search">
+                        <input type="text" id="explore-search" placeholder="Search Pokémon..." autocomplete="off">
+                        <button class="search-icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>TYPE</label>
+                    <select id="type-select" class="dropdown-mock">
+                        <option value="all">All Types</option>
+                    </select>
+                    
+                    <div class="type-grid" id="type-filter-grid">
+                        <!-- Type buttons injected here -->
+                    </div>
+                    <button class="more-btn" id="more-types-btn">+ 10 more</button>
+                </div>
+
+                <div class="filter-group">
+                    <label>GENERATION</label>
+                    <select id="gen-select" class="dropdown-mock">
+                        <option value="all">All Generations</option>
+                        <option value="1">Generation I</option>
+                        <option value="2">Generation II</option>
+                        <option value="3">Generation III</option>
+                        <option value="4">Generation IV</option>
+                        <option value="5">Generation V</option>
+                        <option value="6">Generation VI</option>
+                        <option value="7">Generation VII</option>
+                        <option value="8">Generation VIII</option>
+                        <option value="9">Generation IX</option>
+                    </select>
+                </div>
+
+                <div class="filter-actions">
+                    <button class="btn-outline" id="reset-filters">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                        Reset
+                    </button>
+                    <button class="btn-primary" id="apply-filters">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        Apply Filters
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Grid -->
+            <main class="explore-main">
+                <div id="explore-loading" class="explore-loading hidden">
+                    <div class="spinner"></div>
+                    <p>Loading Pokédex data...</p>
+                </div>
+                
+                <div id="explore-grid" class="pokemon-grid-container">
+                    <!-- Cards injected here -->
+                </div>
+
+                <div class="explore-pagination-wrapper">
+                    <div class="explore-pagination" id="explore-pagination">
+                        <!-- Pagination controls -->
+                    </div>
+                    <p class="pagination-info" id="explore-page-info">Showing 1 to 20 of 1000 Pokémon</p>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="js/explore.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

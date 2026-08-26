@@ -897,3 +897,369 @@ button {
 .hidden {
     display: none !important;
 }
+
+/* =========================================
+   EXPLORE VIEW
+========================================= */
+.explore-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    flex: 1;
+    margin: 0 auto;
+    padding: 0 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.explore-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.explore-title-area h2 {
+    font-size: 2.5rem;
+    color: var(--text-yellow);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.explore-title-area p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.explore-controls {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.control-group select {
+    background-color: var(--panel-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    outline: none;
+    font-family: var(--font-primary);
+}
+
+.view-toggles {
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    padding: 0 1.5rem;
+}
+
+.view-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    padding: 0.25rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.view-btn.active {
+    color: var(--text-yellow);
+    border-color: var(--text-yellow);
+}
+
+.explore-content {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Sidebar Filters */
+.filters-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+}
+.filters-sidebar::-webkit-scrollbar { width: 4px; }
+.filters-sidebar::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+.filters-sidebar h3 {
+    color: var(--text-yellow);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.filter-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+}
+
+.explore-search input {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    width: 100%;
+}
+
+.dropdown-mock {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    width: 100%;
+}
+
+.type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.type-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.4rem 0.5rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.type-filter-btn.selected {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: var(--text-secondary);
+}
+
+.type-filter-icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.more-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.4rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    width: 100%;
+}
+.more-btn:hover { background-color: rgba(255,255,255,0.05); }
+
+.filter-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-outline, .btn-primary {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.6rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.btn-outline:hover { background-color: rgba(255,255,255,0.05); }
+
+.btn-primary {
+    background-color: var(--pokedex-red);
+    color: white;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: var(--pokedex-dark-red);
+}
+
+/* Explore Main */
+.explore-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.pokemon-grid-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding: 1.5rem;
+    overflow-y: auto;
+    align-content: flex-start;
+}
+.pokemon-grid-container::-webkit-scrollbar { width: 6px; }
+.pokemon-grid-container::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+.explore-card {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.explore-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.card-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.star-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    padding: 0;
+}
+.star-btn.favorited {
+    color: var(--text-yellow);
+    fill: var(--text-yellow);
+}
+
+.card-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 1rem 0;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+}
+
+.card-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+
+.card-types {
+    display: flex;
+    gap: 0.4rem;
+}
+.card-type-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.explore-pagination-wrapper {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: rgba(18, 22, 32, 0.95);
+}
+
+.explore-pagination {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.page-num-btn {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.page-num-btn:hover:not(:disabled) {
+    color: white;
+    border-color: var(--text-secondary);
+}
+.page-num-btn.active {
+    background-color: var(--pokedex-red);
+    color: white;
+    border-color: var(--pokedex-red);
+}
+.page-num-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.explore-loading {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(18, 22, 32, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}

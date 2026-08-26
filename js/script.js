@@ -67,8 +67,14 @@ function setupEventListeners() {
             e.target.classList.add('active');
             
             if(e.target.textContent === 'Home') {
+                document.getElementById('explore-view').classList.add('hidden');
+                document.getElementById('home-view').classList.remove('hidden');
                 searchInput.value = '';
                 fetchAndDisplayPokemon(DEFAULT_POKEMON);
+            } else if (e.target.textContent === 'Explore') {
+                document.getElementById('home-view').classList.add('hidden');
+                document.getElementById('explore-view').classList.remove('hidden');
+                if (window.initExplore) window.initExplore();
             } else {
                 showError(`${e.target.textContent} section coming soon!`);
                 setTimeout(hideError, 3000);
