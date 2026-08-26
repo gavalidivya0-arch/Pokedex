@@ -75,6 +75,7 @@ function setupEventListeners() {
                 document.getElementById('home-view').classList.add('hidden');
                 document.getElementById('explore-view').classList.remove('hidden');
                 if (window.initExplore) window.initExplore();
+                if (window.showExplore) window.showExplore();
             } else {
                 showError(`${e.target.textContent} section coming soon!`);
                 setTimeout(hideError, 3000);
@@ -91,8 +92,10 @@ function setupEventListeners() {
 
     if(navFavBtn) {
         navFavBtn.addEventListener('click', () => {
-            showError('Favorites feature coming soon!');
-            setTimeout(hideError, 3000);
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('explore-view').classList.remove('hidden');
+            if (window.initExplore) window.initExplore();
+            if (window.showFavorites) window.showFavorites();
         });
     }
 

@@ -14,10 +14,26 @@ const exploreState = {
     filters: {
         search: '',
         type: 'all',
-        gen: 'all'
+        gen: 'all',
+        favoritesOnly: false
     },
     loading: false
 };
+
+// --- Favorites LocalStorage ---
+function getFavorites() {
+    return JSON.parse(localStorage.getItem('pokedex_favorites') || '[]');
+}
+
+function toggleFavorite(id) {
+    let favs = getFavorites();
+    if (favs.includes(id)) {
+        favs = favs.filter(f => f !== id);
+    } else {
+        favs.push(id);
+    }
+    localStorage.setItem('pokedex_favorites', JSON.stringify(favs));
+}
 
 const typeColors = {
     normal: '#A8A77A', fire: '#EE8130', water: '#6390F0', electric: '#F7D02C',
@@ -186,8 +202,15 @@ async function applyFilters() {
         hideExploreLoading();
     }
     
-    // Apply Search
     let result = baseList;
+
+    // Apply Favorites
+    if (exploreState.filters.favoritesOnly) {
+        const favs = getFavorites();
+        result = result.filter(p => favs.includes(p.id));
+    }
+    
+    // Apply Search
     if (exploreState.filters.search) {
         result = result.filter(p => p.name.includes(exploreState.filters.search) || p.id.toString() === exploreState.filters.search);
     }
@@ -218,9 +241,32 @@ function resetFilters() {
     exploreSearchInput.value = '';
     genSelect.value = 'all';
     exploreState.filters.type = 'all';
+    exploreState.filters.favoritesOnly = false;
     document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.remove('selected'));
     
+    document.querySelector('.explore-title-area h2').textContent = 'EXPLORE POKÉMON';
+    document.querySelector('.explore-title-area p').textContent = 'Browse and discover Pokémon from the entire Pokédex.';
+    
     applyFilters();
+}
+
+function showFavorites() {
+    exploreSearchInput.value = '';
+    genSelect.value = 'all';
+    exploreState.filters.type = 'all';
+    document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.remove('selected'));
+    
+    exploreState.filters.favoritesOnly = true;
+    document.querySelector('.explore-title-area h2').textContent = 'FAVORITE POKÉMON';
+    document.querySelector('.explore-title-area p').textContent = 'Your saved collection of favorite Pokémon.';
+    
+    applyFilters();
+}
+
+function showExplore() {
+    if (exploreState.filters.favoritesOnly) {
+        resetFilters();
+    }
 }
 
 // --- Rendering ---
@@ -248,10 +294,12 @@ async function renderExploreGrid() {
                 typeBadges = p.types.map(t => `<span class="card-type-badge" style="background-color: ${typeColors[t] || '#fff'}">${t}</span>`).join('');
             }
             
+            const isFav = getFavorites().includes(p.id);
+            
             card.innerHTML = `
                 <div class="card-header">
                     <span>#${p.id.toString().padStart(3, '0')}</span>
-                    <button class="star-btn">
+                    <button class="star-btn ${isFav ? 'favorited' : ''}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                     </button>
                 </div>
@@ -263,6 +311,7 @@ async function renderExploreGrid() {
             // Add click to show detail (could switch to home view and load it)
             card.addEventListener('click', (e) => {
                 if(e.target.closest('.star-btn')) {
+                    toggleFavorite(p.id);
                     e.target.closest('.star-btn').classList.toggle('favorited');
                     return;
                 }
@@ -361,5 +410,7 @@ function hideExploreLoading() {
     exploreLoading.classList.add('hidden');
 }
 
-// Expose init function globally
+// Expose functions globally
 window.initExplore = initExplore;
+window.showFavorites = showFavorites;
+window.showExplore = showExplore;
