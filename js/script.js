@@ -18,9 +18,8 @@ let activePokemonId = null;
 
 // --- DOM Elements ---
 const navLinks = document.querySelectorAll('.nav-links a');
-const navSearchBtn = document.getElementById('nav-search-btn');
 const navFavBtn = document.getElementById('nav-fav-btn');
-const navGithubBtn = document.getElementById('nav-github-btn');
+const navSearchInput = document.getElementById('nav-search-input');
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
@@ -98,19 +97,30 @@ function setupEventListeners() {
     });
 
     // Navbar Actions
-    if(navSearchBtn) {
-        navSearchBtn.addEventListener('click', () => {
-            // Switch to Home view first
-            document.getElementById('explore-view').classList.add('hidden');
-            document.getElementById('features-view').classList.add('hidden');
-            document.getElementById('about-view').classList.add('hidden');
-            document.getElementById('home-view').classList.remove('hidden');
-            
-            // Update nav active state
-            navLinks.forEach(l => l.classList.remove('active'));
-            navLinks[0].classList.add('active'); // Home link
-            
-            searchInput.focus();
+    if(navSearchInput) {
+        navSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = navSearchInput.value.trim();
+                if (query) {
+                    // Switch to Home view first
+                    document.getElementById('explore-view').classList.add('hidden');
+                    document.getElementById('features-view').classList.add('hidden');
+                    document.getElementById('about-view').classList.add('hidden');
+                    document.getElementById('home-view').classList.remove('hidden');
+                    
+                    // Update nav active state
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    navLinks[0].classList.add('active'); // Home link
+                    
+                    // Trigger search
+                    document.getElementById('search-input').value = ''; // clear home search
+                    fetchAndDisplayPokemon(query);
+                    
+                    navSearchInput.value = '';
+                    navSearchInput.blur();
+                }
+            }
         });
     }
 
@@ -118,15 +128,13 @@ function setupEventListeners() {
         navFavBtn.addEventListener('click', () => {
             document.getElementById('home-view').classList.add('hidden');
             document.getElementById('features-view').classList.add('hidden');
+            document.getElementById('about-view').classList.add('hidden');
             document.getElementById('explore-view').classList.remove('hidden');
             if (window.initExplore) window.initExplore();
             if (window.showFavorites) window.showFavorites();
-        });
-    }
-
-    if(navGithubBtn) {
-        navGithubBtn.addEventListener('click', () => {
-            window.open('https://github.com/gavalidivya0-arch/Pok-dex', '_blank');
+            
+            navLinks.forEach(l => l.classList.remove('active'));
+            navLinks[1].classList.add('active'); // Explore link
         });
     }
 }
