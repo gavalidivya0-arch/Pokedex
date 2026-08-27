@@ -349,7 +349,7 @@ function renderPagination() {
     
     // Prev
     const prevBtn = document.createElement('button');
-    prevBtn.className = 'page-num-btn';
+    prevBtn.className = 'page-num-btn prev-btn';
     prevBtn.innerHTML = '&lt; Previous';
     prevBtn.disabled = exploreState.currentPage === 1;
     prevBtn.addEventListener('click', () => {
@@ -379,9 +379,11 @@ function renderPagination() {
     }
     
     if (endPage < totalPages) {
-        const dots = document.createElement('span');
+        const dots = document.createElement('div');
+        dots.className = 'page-num-btn';
+        dots.style.cursor = 'default';
+        dots.style.pointerEvents = 'none';
         dots.style.color = 'var(--text-secondary)';
-        dots.style.alignSelf = 'center';
         dots.textContent = '...';
         explorePagination.appendChild(dots);
         
@@ -397,7 +399,7 @@ function renderPagination() {
     
     // Next
     const nxtBtn = document.createElement('button');
-    nxtBtn.className = 'page-num-btn';
+    nxtBtn.className = 'page-num-btn next-btn';
     nxtBtn.innerHTML = 'Next &gt;';
     nxtBtn.disabled = exploreState.currentPage === totalPages;
     nxtBtn.addEventListener('click', () => {

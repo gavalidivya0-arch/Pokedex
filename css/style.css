@@ -1244,13 +1244,12 @@ button {
 }
 
 .explore-pagination-wrapper {
-    border-top: 1px solid var(--border-color);
-    padding: 1rem 1.5rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
-    background-color: rgba(18, 22, 32, 0.95);
+    gap: 1rem;
+    background-color: transparent;
 }
 
 .explore-pagination {
@@ -1259,30 +1258,47 @@ button {
 }
 
 .page-num-btn {
-    background-color: var(--panel-bg);
+    background-color: #171C26;
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-sm);
+    min-width: 38px;
+    height: 38px;
+    padding: 0 0.5rem;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 .page-num-btn:hover:not(:disabled) {
     color: white;
-    border-color: var(--text-secondary);
+    background-color: #212836;
 }
 .page-num-btn.active {
     background-color: var(--pokedex-red);
     color: white;
     border-color: var(--pokedex-red);
 }
+.page-num-btn.next-btn:not(:disabled) {
+    background-color: var(--pokedex-red);
+    color: white;
+    border-color: var(--pokedex-red);
+    padding: 0 1rem;
+    box-shadow: 0 0 15px rgba(227, 53, 13, 0.4);
+}
+.page-num-btn.next-btn:not(:disabled):hover {
+    filter: brightness(1.1);
+    background-color: var(--pokedex-red);
+}
+.page-num-btn.prev-btn, .page-num-btn.next-btn {
+    padding: 0 1rem;
+}
 .page-num-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background-color: rgba(255,255,255,0.02);
+    border-color: transparent;
 }
 
 .pagination-info {
