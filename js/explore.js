@@ -110,7 +110,7 @@ function setupExploreListeners() {
 
 function renderTypeFilters() {
     typeFilterGrid.innerHTML = '';
-    const visibleTypes = exploreState.typesList.slice(0, 8); // show 8 initially as per mockup
+    const visibleTypes = exploreState.typesList;
     
     visibleTypes.forEach(type => {
         const btn = document.createElement('button');
