@@ -1152,10 +1152,10 @@ button {
     background-color: var(--card-bg);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
-    padding: 1.25rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.5rem;
     height: fit-content;
     align-self: flex-start;
     position: sticky;
@@ -1169,14 +1169,14 @@ button {
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.6rem;
+    padding-bottom: 0.75rem;
     margin: 0;
 }
 
 .filter-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.65rem;
 }
 
 .filter-group label {
@@ -1195,7 +1195,7 @@ button {
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     color: white;
-    padding: 0.45rem 2.2rem 0.45rem 0.8rem;
+    padding: 0.55rem 2.2rem 0.55rem 0.85rem;
     border-radius: var(--radius-sm);
     width: 100%;
     font-size: 0.85rem;
@@ -1205,7 +1205,7 @@ button {
     background-color: var(--panel-bg);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 0.45rem 0.8rem;
+    padding: 0.55rem 0.85rem;
     border-radius: var(--radius-sm);
     width: 100%;
     font-size: 0.85rem;
@@ -1216,8 +1216,8 @@ button {
 .type-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.4rem;
-    max-height: 165px;
+    gap: 0.5rem;
+    max-height: 180px;
     overflow-y: auto;
     padding-right: 4px;
 }
@@ -1228,8 +1228,8 @@ button {
 .type-filter-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 0.35rem 0.5rem;
+    gap: 8px;
+    padding: 0.45rem 0.6rem;
     background-color: transparent;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -1254,8 +1254,8 @@ button {
 
 .filter-actions {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 0.25rem;
+    gap: 0.85rem;
+    margin-top: 0.5rem;
 }
 
 .btn-outline, .btn-primary {
@@ -1264,7 +1264,7 @@ button {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 0.6rem;
+    padding: 0.65rem 0.8rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
     font-size: 0.85rem;
