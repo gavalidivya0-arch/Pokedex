@@ -48,15 +48,14 @@ const pageInfo = document.getElementById('page-info');
 // --- Initialization ---
 async function init() {
     setupEventListeners();
-    await fetchPokemonList();
     await fetchAndDisplayPokemon(DEFAULT_POKEMON);
 }
 
 // --- Event Listeners ---
 function setupEventListeners() {
     searchForm.addEventListener('submit', handleSearch);
-    prevBtn.addEventListener('click', () => changePage(-1));
-    nextBtn.addEventListener('click', () => changePage(1));
+    if (prevBtn) prevBtn.addEventListener('click', () => changePage(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => changePage(1));
 
     // Navbar Links
     navLinks.forEach(link => {
@@ -219,25 +218,11 @@ async function fetchAndDisplayPokemon(query) {
 }
 
 async function fetchPokemonList() {
-    prevBtn.disabled = true;
-    nextBtn.disabled = true;
-    pokemonListContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-secondary);">Loading...</div>';
-
-    const data = await getPokemonList(ITEMS_PER_PAGE, currentOffset);
-    
-    if (data) {
-        totalPokemon = data.count;
-        renderSidebarList(data.results);
-        updatePaginationControls();
-    } else {
-        pokemonListContainer.innerHTML = '<div style="color: var(--pokedex-red); padding: 1rem;">Failed to load list.</div>';
-    }
+    // Disabled since sidebar list is removed
 }
 
 function changePage(direction) {
-    currentOffset += direction * ITEMS_PER_PAGE;
-    if (currentOffset < 0) currentOffset = 0;
-    fetchPokemonList();
+    // Disabled since sidebar list is removed
 }
 
 // --- UI Update Functions ---
@@ -247,13 +232,21 @@ function displayPokemon(data, speciesData) {
     pokemonName.textContent = data.name;
     pokemonId.textContent = `#${data.id.toString().padStart(3, '0')}`;
     
-    // Category (Genus)
+    // Category & Description
     let category = 'Unknown Pokémon';
+    let description = 'No description available.';
     if (speciesData) {
         const genusEntry = speciesData.genera.find(g => g.language.name === 'en');
         if (genusEntry) category = genusEntry.genus;
+        
+        const flavorEntry = speciesData.flavor_text_entries.find(f => f.language.name === 'en');
+        if (flavorEntry) {
+            description = flavorEntry.flavor_text.replace(/[\n\f]/g, ' ');
+        }
     }
     pokemonCategory.textContent = category;
+    const descEl = document.getElementById('pokemon-description');
+    if (descEl) descEl.textContent = description;
 
     // Image
     const imageUrl = data.sprites.other?.['official-artwork']?.front_default || data.sprites.front_default;
@@ -320,81 +313,106 @@ function displayStats(stats) {
     });
 }
 
-function displayAbilities(abilities) {
-    pokemonAbilities.innerHTML = '';
-    abilities.forEach(a => {
+async function displayAbilities(abilities) {
+    const pillsContainer = document.getElementById('pokemon-ability-pills');
+    const descContainer = document.getElementById('pokemon-ability-desc');
+    if (!pillsContainer || !descContainer) return;
+
+    pillsContainer.innerHTML = '';
+    descContainer.innerHTML = '';
+
+    const abilityPromises = abilities.map(async (a) => {
+        let pillName = a.ability.name.replace(/-/g, ' ');
+        if (a.is_hidden) pillName += ' (Hidden)';
+        
+        let descText = 'No description available.';
+        try {
+            const res = await fetch(a.ability.url);
+            const data = await res.json();
+            const effectEntry = data.effect_entries.find(e => e.language.name === 'en');
+            if (effectEntry) {
+                descText = effectEntry.short_effect;
+            } else {
+                const flavorEntry = data.flavor_text_entries.find(f => f.language.name === 'en');
+                if (flavorEntry) descText = flavorEntry.flavor_text.replace(/[\n\f]/g, ' ');
+            }
+        } catch(e) { console.error(e); }
+
+        return { name: pillName, desc: descText };
+    });
+
+    const detailedAbilities = await Promise.all(abilityPromises);
+    
+    detailedAbilities.forEach(a => {
         const pill = document.createElement('div');
         pill.className = 'ability-pill';
-        let name = a.ability.name.replace(/-/g, ' ');
-        if (a.is_hidden) name += ' (Hidden)';
-        pill.textContent = name;
-        pokemonAbilities.appendChild(pill);
+        pill.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"></path></svg> ${a.name}`;
+        pillsContainer.appendChild(pill);
+
+        const descItem = document.createElement('div');
+        descItem.className = 'ability-desc-item';
+        descItem.innerHTML = `<h4>${a.name}</h4><p>${a.desc}</p>`;
+        descContainer.appendChild(descItem);
     });
 }
 
-function displayMoves(moves) {
+async function displayMoves(moves) {
+    if (!pokemonMoves) return;
     pokemonMoves.innerHTML = '';
-    const displayed = moves.slice(0, 20);
+    const displayed = moves.slice(0, 5); // display top 5
     if (!displayed.length) {
         pokemonMoves.innerHTML = '<span>No moves.</span>';
         return;
     }
-    displayed.forEach(m => {
-        const pill = document.createElement('span');
-        pill.className = 'move-pill';
-        pill.textContent = m.move.name.replace(/-/g, ' ');
-        pokemonMoves.appendChild(pill);
+
+    const movePromises = displayed.map(async (m) => {
+        try {
+            const res = await fetch(m.move.url);
+            const data = await res.json();
+            return {
+                name: data.name.replace(/-/g, ' '),
+                type: data.type.name,
+                power: data.power || '—',
+                accuracy: data.accuracy ? `${data.accuracy}%` : '—'
+            };
+        } catch(e) {
+            return {
+                name: m.move.name.replace(/-/g, ' '),
+                type: 'normal',
+                power: '—',
+                accuracy: '—'
+            };
+        }
+    });
+
+    const detailedMoves = await Promise.all(movePromises);
+
+    detailedMoves.forEach(m => {
+        const row = document.createElement('div');
+        row.className = 'move-row';
+        row.innerHTML = `
+            <div class="move-name-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="var(--text-yellow)" stroke="none"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"></path></svg>
+                <span>${m.name}</span>
+            </div>
+            <div class="move-type-pill" style="background-color: var(--type-${m.type}, #A8A878)">${m.type}</div>
+            <div class="move-power">Power: ${m.power}</div>
+            <div class="move-acc">Accuracy: ${m.accuracy}</div>
+        `;
+        pokemonMoves.appendChild(row);
     });
 }
 
 function renderSidebarList(results) {
-    pokemonListContainer.innerHTML = '';
-    
-    results.forEach((pokemon) => {
-        const parts = pokemon.url.split('/');
-        const id = parts[parts.length - 2];
-        
-        const item = document.createElement('div');
-        item.className = `list-item ${id === activePokemonId ? 'active' : ''}`;
-        item.dataset.id = id;
-        
-        const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-        
-        item.innerHTML = `
-            <img src="${sprite}" alt="${pokemon.name}" class="list-item-img" loading="lazy">
-            <div class="list-item-info">
-                <span class="list-item-id">#${id.padStart(3, '0')}</span>
-                <span class="list-item-name">${pokemon.name.replace(/-/g, ' ')}</span>
-            </div>
-        `;
-        
-        item.addEventListener('click', () => {
-            searchInput.value = '';
-            fetchAndDisplayPokemon(id);
-        });
-        
-        pokemonListContainer.appendChild(item);
-    });
+    // Disabled since sidebar list is removed
 }
 
 function updateSidebarActiveState() {
-    const items = pokemonListContainer.querySelectorAll('.list-item');
-    items.forEach(item => {
-        if (item.dataset.id === activePokemonId) {
-            item.classList.add('active');
-            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-            item.classList.remove('active');
-        }
-    });
+    // Disabled since sidebar list is removed
 }
 
 function updatePaginationControls() {
-    const currentListEnd = Math.min(currentOffset + ITEMS_PER_PAGE, totalPokemon);
-    pageInfo.textContent = `${currentOffset + 1} - ${currentListEnd} / ${totalPokemon}`;
-    
-    prevBtn.disabled = currentOffset === 0;
-    nextBtn.disabled = currentOffset + ITEMS_PER_PAGE >= totalPokemon;
+    // Disabled since sidebar list is removed
 }
 
 // --- Utility Functions ---

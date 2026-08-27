@@ -114,98 +114,92 @@
             <!-- App Content Area (Two panes) -->
             <div id="app-content" class="app-content hidden">
                 
-                <!-- Left Pane: Sidebar List -->
-                <section class="pokemon-list-sidebar">
-                    <div class="list-header">
-                        <div class="dropdown-mock">
-                            <span>Showing 20</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </div>
-                    </div>
-                    
-                    <div id="pokemon-list" class="pokemon-list">
-                        <!-- List items injected here -->
-                    </div>
-
-                    <div class="pagination">
-                        <button id="prev-btn" class="page-btn" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                            Prev
-                        </button>
-                        <span id="page-info" class="page-info">1 / 20</span>
-                        <button id="next-btn" class="page-btn">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </button>
-                    </div>
-                </section>
+                <!-- Removed Sidebar List -->
 
                 <!-- Right Pane: Detail View -->
                 <section id="pokemon-detail-view" class="pokemon-detail-view">
-                    
-                    <div class="detail-top-bar">
-                        <div class="identity">
-                            <span id="pokemon-id" class="pokemon-id">#000</span>
-                            <h2 id="pokemon-name" class="pokemon-name">Loading</h2>
-                            <span id="pokemon-category" class="pokemon-category">Loading...</span>
-                        </div>
-                        <div class="attributes">
-                            <div class="types-section">
-                                <span class="section-label">TYPES</span>
-                                <div id="pokemon-types" class="types-container">
-                                    <!-- Types badges -->
-                                </div>
+                    <div class="detail-grid">
+                        
+                        <!-- Left Column -->
+                        <div class="detail-left-col">
+                            <div class="pokemon-identity">
+                                <span id="pokemon-id" class="pokemon-id">#000</span>
+                                <h2 id="pokemon-name" class="pokemon-name">Loading</h2>
+                                <span id="pokemon-category" class="pokemon-category">Loading...</span>
                             </div>
-                            <div class="physical-section">
-                                <div class="attribute">
-                                    <span class="section-label">HEIGHT</span>
-                                    <span id="pokemon-height" class="attr-value">
+                            
+                            <p id="pokemon-description" class="pokemon-description">Loading description...</p>
+                            
+                            <div class="physical-traits">
+                                <div class="trait">
+                                    <span class="trait-label">HEIGHT</span>
+                                    <span id="pokemon-height" class="trait-value">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
                                         --
                                     </span>
                                 </div>
-                                <div class="attribute">
-                                    <span class="section-label">WEIGHT</span>
-                                    <span id="pokemon-weight" class="attr-value">
+                                <div class="trait">
+                                    <span class="trait-label">WEIGHT</span>
+                                    <span id="pokemon-weight" class="trait-value">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                         --
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="detail-image-container">
-                        <div class="image-shadow"></div>
-                        <img id="pokemon-image" src="" alt="" class="pokemon-image">
-                    </div>
-
-                    <div class="detail-bottom-grid">
-                        <div class="stats-card">
-                            <span class="section-label">STATS</span>
-                            <div id="pokemon-stats" class="stats-container">
-                                <!-- Stats bars -->
-                            </div>
-                        </div>
-                        
-                        <div class="abilities-moves-col">
-                            <div class="abilities-card">
-                                <span class="section-label">ABILITIES</span>
-                                <div id="pokemon-abilities" class="abilities-container">
-                                    <!-- Abilities -->
+                            <div class="types-section">
+                                <span class="trait-label">TYPE</span>
+                                <div id="pokemon-types" class="types-container">
+                                    <!-- Types badges -->
                                 </div>
                             </div>
-                            
-                            <div class="moves-card">
+
+                            <div class="moves-card card-panel">
                                 <span class="section-label">MOVES</span>
                                 <div id="pokemon-moves" class="moves-container">
                                     <!-- Moves -->
                                 </div>
-                                <button class="view-all-btn">View All (20)</button>
+                                <button class="view-all-btn">View All Moves</button>
                             </div>
                         </div>
-                    </div>
 
+                        <!-- Center Column -->
+                        <div class="detail-center-col">
+                            <div class="favorite-toggle">
+                                <button class="star-btn outline-star" id="detail-fav-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--pokedex-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                </button>
+                            </div>
+                            <div class="detail-image-container">
+                                <img id="pokemon-image" src="" alt="" class="pokemon-image">
+                                <div class="image-base-glow">
+                                    <div class="glow-ring inner"></div>
+                                    <div class="glow-ring outer"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="detail-right-col">
+                            <div class="stats-card card-panel">
+                                <span class="section-label">STATS</span>
+                                <div id="pokemon-stats" class="stats-container">
+                                    <!-- Stats bars -->
+                                </div>
+                            </div>
+                            
+                            <div class="abilities-card card-panel">
+                                <span class="section-label">ABILITIES</span>
+                                <div class="abilities-pills-row" id="pokemon-ability-pills">
+                                    <!-- Ability pills -->
+                                </div>
+                                <div class="abilities-desc-list" id="pokemon-ability-desc">
+                                    <!-- Ability descriptions -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </section>
             </div>
         </main>
