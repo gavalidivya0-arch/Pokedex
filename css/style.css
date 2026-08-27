@@ -858,13 +858,15 @@ button {
     justify-content: center;
     z-index: 2;
 }
+
 .pokemon-image {
-    width: 310px;
-    height: 310px;
+    width: 320px;
+    height: 320px;
     object-fit: contain;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.75)) drop-shadow(0 0 35px rgba(255, 203, 5, 0.3)) contrast(1.06) brightness(1.03);
     z-index: 4;
     animation: float 5s ease-in-out infinite;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .image-base-glow {

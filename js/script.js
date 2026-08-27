@@ -270,10 +270,13 @@ function displayPokemon(data, speciesData) {
     }
     pokemonCategory.textContent = category;
 
-    // Image
-    const imageUrl = data.sprites.other?.['official-artwork']?.front_default || data.sprites.front_default;
+    // Image (3D Home Model with fallback to official-artwork)
+    const imageUrl = data.sprites.other?.['home']?.front_default || data.sprites.other?.['official-artwork']?.front_default || data.sprites.front_default;
     pokemonImage.src = imageUrl || '';
     pokemonImage.alt = data.name;
+    pokemonImage.onerror = () => {
+        pokemonImage.src = data.sprites.other?.['official-artwork']?.front_default || data.sprites.front_default || '';
+    };
 
     // Dimensions
     pokemonHeight.textContent = `${(data.height / 10).toFixed(1)} m`;
@@ -417,7 +420,8 @@ async function renderSidebarList(results) {
         const urlParts = p.url.split('/');
         const id = urlParts[urlParts.length - 2];
         const paddedId = id.padStart(3, '0');
-        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        const homeImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`;
+        const fallbackImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
         const idColor = POKEMON_ID_COLORS[id] || 'var(--text-yellow)';
 
         const card = document.createElement('div');
@@ -426,7 +430,7 @@ async function renderSidebarList(results) {
         if (id === activePokemonId) card.classList.add('active');
         
         card.innerHTML = `
-            <img src="${imageUrl}" alt="${p.name}" loading="lazy" onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'">
+            <img src="${homeImageUrl}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImageUrl}'">
             <span class="list-id" style="color: ${idColor}">#${paddedId}</span>
             <span class="list-name">${p.name}</span>
         `;
