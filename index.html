@@ -1,179 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex | Explore the world of Pokémon</title>
-    <meta name="description" content="A modern, dynamic Pokédex built with the PokéAPI. Search and discover information about your favorite Pokémon.">
+    <meta name="description"
+        content="A modern, dynamic Pokédex built with the PokéAPI. Search and discover information about your favorite Pokémon.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;600;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=1.1">
 </head>
+
 <body>
     <!-- Global Top Navbar -->
     <nav class="top-navbar">
         <div class="nav-brand">
             <div class="pokeball-icon-nav"></div>
-            <span class="brand-text">POKÉDEX</span>
+            <span class="brand-text">POKÉ<span class="brand-text-red">DEX</span></span>
         </div>
-        
+
         <ul class="nav-links">
             <li><a href="#" class="active">Home</a></li>
             <li><a href="#">Explore</a></li>
             <li><a href="#">Features</a></li>
             <li><a href="#">About</a></li>
         </ul>
-        
+
         <div class="nav-actions">
             <div class="nav-search-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="nav-search-input" placeholder="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="nav-search-input" placeholder="Search Pokémon by name or ID...">
             </div>
             <button class="nav-btn" id="nav-fav-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="var(--text-yellow)" stroke="var(--text-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                    fill="var(--text-yellow)" stroke="var(--text-yellow)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
+                </svg>
                 Favorites
             </button>
             <div class="pokeball-icon-nav" style="cursor: pointer; transform: scale(0.9);"></div>
         </div>
     </nav>
 
-    <div class="page-wrapper" id="home-view">
-        <!-- Left Column: Landing Info -->
-        <aside class="landing-info">
-            <div class="logo-container">
-                <h1 class="logo-text">P<div class="pokeball-icon-inline"></div>KÉDEX</h1>
-                <p class="tagline">EXPLORE • DISCOVER • CATCH</p>
-            </div>
-            
-            <p class="description">
-                A modern Pokédex web application built with Vanilla JavaScript and powered by <span class="highlight">PokéAPI</span>.
-            </p>
+    <!-- Main Home Page View -->
+    <div class="page-wrapper home-view-wrapper" id="home-view">
+        <!-- Hidden landing-info to keep code intact if needed -->
+        <aside class="landing-info" style="display: none;"></aside>
 
-            <ul class="features-list">
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <span>Search Pokémon by name or ID</span>
-                </li>
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
-                    <span>View stats, types, abilities & moves</span>
-                </li>
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M7 16l-4-4 4-4"></path><path d="M17 8l4 4-4 4"></path></svg>
-                    <span>Pagination with Next / Prev</span>
-                </li>
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                    <span>Responsive & Accessible</span>
-                </li>
-                <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                    <span>Fast, Clean & User Friendly UI</span>
-                </li>
-            </ul>
-        </aside>
+        <!-- Main Pokédex Container (Transparent background matching reference) -->
+        <main class="app-wrapper main-pokedex-home">
 
-        <!-- Right Column: App Wrapper -->
-        <main class="app-wrapper">
-            
-            <!-- App Header -->
-            <header class="app-header">
-                <div class="small-logo">
-                    <div class="pokeball-icon-small"></div>
-                    <h2>POKÉDEX</h2>
-                </div>
-                
-                <form id="search-form" class="search-form">
-                    <div class="search-input-wrapper">
-                        <input 
-                            type="text" 
-                            id="search-input" 
-                            class="search-input" 
-                            placeholder="Search Pokémon by name or ID..." 
-                            aria-label="Search for a Pokémon"
-                            autocomplete="off"
-                        >
-                        <button type="submit" class="search-icon-btn" aria-label="Search">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        </button>
-                    </div>
-                    <button type="submit" class="search-btn">Search</button>
-                </form>
-            </header>
-            
+            <!-- Hidden search form for JS compatibility if needed -->
+            <form id="search-form" class="search-form" style="display: none;">
+                <input type="text" id="search-input">
+            </form>
+
             <!-- Loading Overlay -->
             <div id="loading-state" class="loading-state hidden">
                 <div class="spinner"></div>
                 <p>Loading...</p>
             </div>
-            
+
             <div id="search-message" class="message-container" aria-live="polite"></div>
 
-            <!-- App Content Area (Two panes) -->
-            <div id="app-content" class="app-content hidden">
-                
-                <!-- Removed Sidebar List -->
+            <!-- App Content Area -->
+            <div id="app-content" class="app-content">
 
-                <!-- Right Pane: Detail View -->
+                <!-- Detail View (Top 3-Column Grid) -->
                 <section id="pokemon-detail-view" class="pokemon-detail-view">
                     <div class="detail-grid">
-                        
+
                         <!-- Left Column -->
                         <div class="detail-left-col">
                             <div class="pokemon-identity">
-                                <span id="pokemon-id" class="pokemon-id">#000</span>
-                                <h2 id="pokemon-name" class="pokemon-name">Loading</h2>
-                                <span id="pokemon-category" class="pokemon-category">Loading...</span>
-                            </div>
-                            
-                            <p id="pokemon-description" class="pokemon-description">Loading description...</p>
-                            
-                            <div class="physical-traits">
-                                <div class="trait">
-                                    <span class="trait-label">HEIGHT</span>
-                                    <span id="pokemon-height" class="trait-value">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
-                                        --
-                                    </span>
-                                </div>
-                                <div class="trait">
-                                    <span class="trait-label">WEIGHT</span>
-                                    <span id="pokemon-weight" class="trait-value">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                        --
-                                    </span>
+                                <span id="pokemon-id" class="pokemon-id">#025</span>
+                                <h2 id="pokemon-name" class="pokemon-name">PIKACHU</h2>
+                                <div class="category-pill-wrapper">
+                                    <span id="pokemon-category" class="pokemon-category-pill">Mouse Pokémon</span>
                                 </div>
                             </div>
 
                             <div class="types-section">
                                 <span class="trait-label">TYPE</span>
                                 <div id="pokemon-types" class="types-container">
-                                    <!-- Types badges -->
+                                    <!-- Injected via JS -->
                                 </div>
                             </div>
 
-                            <div class="moves-card card-panel">
-                                <span class="section-label">MOVES</span>
-                                <div id="pokemon-moves" class="moves-container">
-                                    <!-- Moves -->
+                            <div class="physical-traits">
+                                <div class="trait-box">
+                                    <span class="trait-label">HEIGHT</span>
+                                    <div class="trait-val-row">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M21.3 15.3l-8.6-8.6a2 2 0 0 0-2.8 0L2.7 13.9a2 2 0 0 0 0 2.8l2.6 2.6a2 2 0 0 0 2.8 0l7.2-7.2" />
+                                        </svg>
+                                        <span id="pokemon-height" class="trait-value">0.4 m</span>
+                                    </div>
                                 </div>
-                                <button class="view-all-btn">View All Moves</button>
+                                <div class="trait-box">
+                                    <span class="trait-label">WEIGHT</span>
+                                    <div class="trait-val-row">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="5" r="3" />
+                                            <path
+                                                d="M6.5 8a2 2 0 0 0-1.9 1.4l-2 6A2 2 0 0 0 4.5 18h15a2 2 0 0 0 1.9-2.6l-2-6A2 2 0 0 0 17.5 8z" />
+                                        </svg>
+                                        <span id="pokemon-weight" class="trait-value">6.0 kg</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Center Column -->
                         <div class="detail-center-col">
-                            <div class="favorite-toggle">
-                                <button class="star-btn outline-star" id="detail-fav-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--pokedex-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                </button>
+                            <!-- Background Pokéball Watermark -->
+                            <div class="center-pokeball-watermark">
+                                <svg viewBox="0 0 100 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3">
+                                    <circle cx="50" cy="50" r="46" />
+                                    <line x1="4" y1="50" x2="96" y2="50" />
+                                    <circle cx="50" cy="50" r="16" fill="#0B1021" stroke="rgba(255,255,255,0.05)"
+                                        stroke-width="3" />
+                                    <circle cx="50" cy="50" r="8" fill="rgba(255,255,255,0.05)" />
+                                </svg>
                             </div>
+
+                            <!-- Lightning bolt sparks in background -->
+                            <div class="lightning-decorations">
+                                <span class="spark s1">⚡</span>
+                                <span class="spark s2">⚡</span>
+                                <span class="spark s3">⚡</span>
+                                <span class="spark s4">⚡</span>
+                            </div>
+
                             <div class="detail-image-container">
-                                <img id="pokemon-image" src="" alt="" class="pokemon-image">
+                                <img id="pokemon-image"
+                                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+                                    alt="Pikachu" class="pokemon-image">
                                 <div class="image-base-glow">
                                     <div class="glow-ring inner"></div>
+                                    <div class="glow-ring mid"></div>
                                     <div class="glow-ring outer"></div>
                                 </div>
                             </div>
@@ -181,24 +163,64 @@
 
                         <!-- Right Column -->
                         <div class="detail-right-col">
-                            <div class="stats-card card-panel">
-                                <span class="section-label">STATS</span>
-                                <div id="pokemon-stats" class="stats-container">
-                                    <!-- Stats bars -->
+                            <!-- STATS -->
+                            <div class="stats-section-exact">
+                                <span class="section-title-yellow">STATS</span>
+                                <div id="pokemon-stats" class="stats-container-exact">
+                                    <!-- Injected via JS -->
                                 </div>
                             </div>
-                            
-                            <div class="abilities-card card-panel">
-                                <span class="section-label">ABILITIES</span>
-                                <div class="abilities-pills-row" id="pokemon-ability-pills">
-                                    <!-- Ability pills -->
+
+                            <!-- ABILITIES -->
+                            <div class="abilities-section-exact">
+                                <span class="section-title-yellow">ABILITIES</span>
+                                <div class="abilities-pills-row-exact" id="pokemon-ability-pills">
+                                    <!-- Injected via JS -->
                                 </div>
-                                <div class="abilities-desc-list" id="pokemon-ability-desc">
-                                    <!-- Ability descriptions -->
+                            </div>
+
+                            <!-- MOVES -->
+                            <div class="moves-section-exact">
+                                <span class="section-title-yellow">MOVES</span>
+                                <div id="pokemon-moves" class="moves-grid-exact">
+                                    <!-- Injected via JS -->
                                 </div>
                             </div>
                         </div>
 
+                    </div>
+                </section>
+
+                <!-- Bottom Pane: Horizontal List Tray -->
+                <section class="bottom-list-container">
+                    <div class="list-cards-wrapper">
+                        <button class="nav-btn-circle" id="prev-btn" aria-label="Previous Pokémon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="pokemon-list" class="horizontal-pokemon-list">
+                            <!-- Cards injected dynamically -->
+                        </div>
+                        <button class="nav-btn-circle red-glow" id="next-btn" aria-label="Next Pokémon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="list-pagination-dots" id="list-pagination-dots">
+                        <span class="dot"></span>
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                     </div>
                 </section>
             </div>
@@ -225,10 +247,24 @@
                 <div class="control-group view-toggles">
                     <label>View:</label>
                     <button class="view-btn active" title="Grid View">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
                     </button>
                     <button class="view-btn" title="List View">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
                     </button>
                 </div>
                 <div class="control-group">
@@ -244,13 +280,21 @@
         <div class="explore-content">
             <!-- Sidebar Filters -->
             <aside class="filters-sidebar">
-                <h3>FILTERS <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg></h3>
-                
+                <h3>FILTERS <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="margin-left: 4px;">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg></h3>
+
                 <div class="filter-group">
                     <label>SEARCH</label>
                     <div class="search-input-wrapper explore-search">
                         <input type="text" id="explore-search" placeholder="Search Pokémon..." autocomplete="off">
-                        <button class="search-icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                        <button class="search-icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg></button>
                     </div>
                 </div>
 
@@ -259,7 +303,7 @@
                     <select id="type-select" class="dropdown-mock">
                         <option value="all">All Types</option>
                     </select>
-                    
+
                     <div class="type-grid" id="type-filter-grid">
                         <!-- Type buttons injected here -->
                     </div>
@@ -284,11 +328,18 @@
 
                 <div class="filter-actions">
                     <button class="btn-outline" id="reset-filters">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
                         Reset
                     </button>
                     <button class="btn-primary" id="apply-filters">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
                         Apply Filters
                     </button>
                 </div>
@@ -300,7 +351,7 @@
                     <div class="spinner"></div>
                     <p>Loading Pokédex data...</p>
                 </div>
-                
+
                 <div id="explore-grid" class="pokemon-grid-container">
                     <!-- Cards injected here -->
                 </div>
@@ -321,9 +372,15 @@
 
         <div class="features-header">
             <h2 class="features-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--text-yellow)" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" /></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--text-yellow)"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                </svg>
                 FEATURES
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--text-yellow)" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" /></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--text-yellow)"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                </svg>
             </h2>
             <p class="features-subtitle">Everything you need to explore the world of Pokémon.</p>
         </div>
@@ -332,25 +389,36 @@
             <!-- Card 1: Search -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6390F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6390F0" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                 </div>
                 <h3>SMART SEARCH</h3>
                 <p>Search Pokémon by name or Pokédex number. It's fast, accurate and case-insensitive.</p>
                 <div class="mock-ui mock-search">
                     <span class="mock-text">Search Pokémon...</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                 </div>
             </div>
 
             <!-- Card 2: Detailed Info -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu" class="feature-pikachu">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+                        alt="Pikachu" class="feature-pikachu">
                 </div>
                 <h3>DETAILED INFO</h3>
                 <p>Get detailed information including types, height, weight, abilities, moves and base stats.</p>
                 <div class="mock-ui mock-details">
-                    <span class="mock-badge" style="background:var(--type-electric); color:#000;"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg> ELECTRIC</span>
+                    <span class="mock-badge" style="background:var(--type-electric); color:#000;"><svg width="10"
+                            height="10" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                        </svg> ELECTRIC</span>
                     <span class="mock-stats">0.4 m | 6.0 kg</span>
                 </div>
             </div>
@@ -368,7 +436,9 @@
                 <p>Visualize Pokémon base stats with intuitive and colorful progress bars for better insights.</p>
                 <div class="mock-ui mock-stat-bar">
                     <span class="stat-lbl">HP</span>
-                    <div class="progress-bg"><div class="progress-fill" style="width: 60%; background: var(--type-grass);"></div></div>
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 60%; background: var(--type-grass);"></div>
+                    </div>
                     <span class="stat-val">35</span>
                 </div>
             </div>
@@ -376,31 +446,58 @@
             <!-- Card 4: All Types -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper mock-types">
-                    <span class="type-circle" style="background:var(--type-electric);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></span>
-                    <span class="type-circle" style="background:var(--type-water);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>
-                    <span class="type-circle" style="background:var(--pokedex-red);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0011 12c-2.28 0-3-2.12-3-5a5 5 0 00-2 8.5 2.5 2.5 0 002.5 2.5z"/></svg></span>
-                    <span class="type-circle" style="background:var(--type-grass);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-                    <span class="type-circle" style="background:var(--type-poison);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span>
-                    <span class="type-circle" style="background:var(--text-secondary);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg></span>
+                    <span class="type-circle" style="background:var(--type-electric);"><svg width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                        </svg></span>
+                    <span class="type-circle" style="background:var(--type-water);"><svg width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                        </svg></span>
+                    <span class="type-circle" style="background:var(--pokedex-red);"><svg width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <path
+                                d="M8.5 14.5A2.5 2.5 0 0011 12c-2.28 0-3-2.12-3-5a5 5 0 00-2 8.5 2.5 2.5 0 002.5 2.5z" />
+                        </svg></span>
+                    <span class="type-circle" style="background:var(--type-grass);"><svg width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg></span>
+                    <span class="type-circle" style="background:var(--type-poison);"><svg width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                        </svg></span>
+                    <span class="type-circle" style="background:var(--text-secondary);"><svg width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <circle cx="12" cy="12" r="8" />
+                        </svg></span>
                 </div>
                 <h3>ALL TYPES</h3>
                 <p>Browse and discover Pokémon by their types. View multiple types for each Pokémon.</p>
                 <div class="mock-ui mock-badges">
-                    <span class="mock-badge-outline" style="border-color:var(--pokedex-red); color:var(--pokedex-red);">FIRE</span>
-                    <span class="mock-badge-outline" style="border-color:var(--type-water); color:var(--type-water);">FLYING</span>
+                    <span class="mock-badge-outline"
+                        style="border-color:var(--pokedex-red); color:var(--pokedex-red);">FIRE</span>
+                    <span class="mock-badge-outline"
+                        style="border-color:var(--type-water); color:var(--type-water);">FLYING</span>
                 </div>
             </div>
 
             <!-- Card 5: Moves -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokeball" class="feature-pokeball-large">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                        alt="Pokeball" class="feature-pokeball-large">
                 </div>
                 <h3>MOVES & ABILITIES</h3>
                 <p>Explore a wide range of moves and abilities for each Pokémon with detailed information.</p>
                 <div class="mock-ui mock-abilities">
-                    <span class="mock-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--text-yellow)"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg> Thunder Shock</span>
-                    <span class="mock-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg> Static</span>
+                    <span class="mock-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--text-yellow)">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                        </svg> Thunder Shock</span>
+                    <span class="mock-pill"><svg width="10" height="10" viewBox="0 0 24 24"
+                            fill="var(--text-secondary)">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                        </svg> Static</span>
                 </div>
             </div>
         </div>
@@ -409,11 +506,18 @@
             <!-- Card 6: Pagination -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper mock-nav-icons">
-                    <div class="nav-circle dark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
-                    <div class="nav-circle red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                    <div class="nav-circle dark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#fff" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg></div>
+                    <div class="nav-circle red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#fff" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg></div>
                 </div>
                 <h3>PAGINATION</h3>
-                <p>Easily browse through the entire Pokédex with smooth pagination. Navigate with Next / Prev buttons and explore more.</p>
+                <p>Easily browse through the entire Pokédex with smooth pagination. Navigate with Next / Prev buttons
+                    and explore more.</p>
                 <div class="mock-ui mock-pagination">
                     <span class="nav-btn">&lt; Prev</span>
                     <span class="page-btn active">1</span>
@@ -428,15 +532,27 @@
             <!-- Card 7: Favorites -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="var(--text-yellow)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="var(--text-yellow)">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg>
                 </div>
                 <h3>FAVORITES</h3>
                 <p>Mark your favorite Pokémon and access them anytime in your personal collection.</p>
                 <div class="mock-ui mock-favs">
-                    <div class="fav-icon-box"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Fav"></div>
-                    <div class="fav-icon-box"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="Fav"></div>
-                    <div class="fav-icon-box"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" alt="Fav"></div>
-                    <div class="fav-icon-box"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png" alt="Fav"></div>
+                    <div class="fav-icon-box"><img
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                            alt="Fav"></div>
+                    <div class="fav-icon-box"><img
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+                            alt="Fav"></div>
+                    <div class="fav-icon-box"><img
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+                            alt="Fav"></div>
+                    <div class="fav-icon-box"><img
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png"
+                            alt="Fav"></div>
                     <div class="fav-icon-box add-fav">+</div>
                 </div>
             </div>
@@ -445,27 +561,51 @@
             <div class="feature-card">
                 <div class="feature-icon-wrapper mock-devices">
                     <div class="device desktop">
-                        <div class="screen"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" width="16"></div>
+                        <div class="screen"><img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                                width="16"></div>
                         <div class="stand"></div>
                         <div class="base"></div>
                     </div>
                     <div class="device phone">
-                        <div class="screen"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" width="10"></div>
+                        <div class="screen"><img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                                width="10"></div>
                     </div>
                 </div>
                 <h3>RESPONSIVE DESIGN</h3>
-                <p>Fully responsive and accessible experience across all devices. Enjoy the Pokédex anywhere, anytime.</p>
+                <p>Fully responsive and accessible experience across all devices. Enjoy the Pokédex anywhere, anytime.
+                </p>
                 <div class="mock-ui mock-device-icons">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    <svg width="16" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                    <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)"
+                        stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <svg width="16" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)"
+                        stroke-width="2">
+                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                    </svg>
+                    <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)"
+                        stroke-width="2">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                    </svg>
                 </div>
             </div>
 
             <!-- Card 9: Powered By -->
             <div class="feature-card">
                 <div class="feature-icon-wrapper">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6390F0" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6390F0" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
+                    </svg>
                 </div>
                 <h3>POWERED BY POKÉAPI</h3>
                 <p>Real-time data from the powerful PokéAPI. Always accurate, always up-to-date and completely free.</p>
@@ -477,7 +617,8 @@
 
         <div class="features-banner">
             <div class="banner-inner">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokeball" width="24" height="24">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                    alt="Pokeball" width="24" height="24">
                 <span>BUILT WITH ❤️ FOR POKÉMON</span>
             </div>
         </div>
@@ -490,18 +631,27 @@
                 <div class="about-title-row">
                     <h2>ABOUT</h2>
                     <h2 class="red-text">POKÉDEX</h2>
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="about-title-icon" alt="Pokeball">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                        class="about-title-icon" alt="Pokeball">
                 </div>
                 <p class="about-tagline">Explore. Discover. Catch.</p>
                 <p class="about-desc">
                     Pokédex is a modern web application that helps you explore the amazing world of Pokémon.<br>
-                    Search, discover and learn everything about your favorite Pokémon using real-time data from <span class="highlight">PokéAPI</span>.
+                    Search, discover and learn everything about your favorite Pokémon using real-time data from <span
+                        class="highlight">PokéAPI</span>.
                 </p>
-                
+
                 <div class="about-mini-cards">
                     <div class="about-mini-card">
                         <div class="about-mini-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="var(--text-yellow)" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
                         </div>
                         <div class="about-mini-text">
                             <h4>For Trainers</h4>
@@ -510,7 +660,15 @@
                     </div>
                     <div class="about-mini-card">
                         <div class="about-mini-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="var(--text-yellow)" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
                         </div>
                         <div class="about-mini-text">
                             <h4>Real Data</h4>
@@ -520,7 +678,8 @@
                 </div>
             </div>
             <div class="about-header-image">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu" class="about-pikachu">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+                    alt="Pikachu" class="about-pikachu">
             </div>
         </div>
 
@@ -528,35 +687,57 @@
             <div class="about-col-left">
                 <div class="about-card mission-card">
                     <h3 class="mission-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--pokedex-red)" stroke="var(--pokedex-red)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--pokedex-red)"
+                            stroke="var(--pokedex-red)">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
                         OUR MISSION
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-yellow)" stroke="var(--text-yellow)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-yellow)"
+                            stroke="var(--text-yellow)">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
                     </h3>
-                    <p>Our mission is to provide an intuitive, fast and beautiful Pokédex experience that makes discovering Pokémon information fun and effortless.</p>
+                    <p>Our mission is to provide an intuitive, fast and beautiful Pokédex experience that makes
+                        discovering Pokémon information fun and effortless.</p>
                 </div>
-                
+
                 <div class="about-card api-card">
                     <div class="api-card-top">
                         <h2 class="pokeapi-logo">Poké<span>API</span></h2>
-                        <p class="api-card-desc">This application is powered by PokéAPI, the free and open RESTful API for all your Pokémon data needs.</p>
+                        <p class="api-card-desc">This application is powered by PokéAPI, the free and open RESTful API
+                            for all your Pokémon data needs.</p>
                     </div>
                     <div class="api-features">
                         <div class="api-feat">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-yellow)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="var(--text-yellow)" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                </path>
+                            </svg>
                             <span>No Authentication<br>Required</span>
                         </div>
                         <div class="api-feat">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-yellow)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="var(--text-yellow)" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
                             <span>No Rate Limits</span>
                         </div>
                         <div class="api-feat">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-yellow)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="var(--text-yellow)" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
                             <span>Always Accurate &<br>Up-to-Date</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="about-col-right">
                 <div class="about-card tech-card">
                     <span class="section-label-about">TECHNOLOGIES USED</span>
@@ -575,18 +756,24 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="about-card connect-card">
                     <div class="connect-info">
                         <span class="section-label-about">CONNECT</span>
                         <p>Check out the project on GitHub and show your support!</p>
-                        <button class="github-btn" onclick="window.open('https://github.com/gavalidivya0-arch/Pok-dex', '_blank')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        <button class="github-btn"
+                            onclick="window.open('https://github.com/gavalidivya0-arch/Pok-dex', '_blank')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                            </svg>
                             View on GitHub
                         </button>
                     </div>
                     <div class="connect-image">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokeball" class="connect-pokeball">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                            alt="Pokeball" class="connect-pokeball">
                     </div>
                 </div>
             </div>
@@ -599,4 +786,5 @@
     <script src="js/explore.js?v=1.1"></script>
     <script src="js/script.js?v=1.1"></script>
 </body>
+
 </html>

@@ -48,6 +48,7 @@ const pageInfo = document.getElementById('page-info');
 // --- Initialization ---
 async function init() {
     setupEventListeners();
+    await fetchPokemonList();
     await fetchAndDisplayPokemon(DEFAULT_POKEMON);
 }
 
@@ -217,36 +218,57 @@ async function fetchAndDisplayPokemon(query) {
     }
 }
 
+const FEATURED_POKEMON = [
+    { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' },
+    { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
+    { name: 'charmander', url: 'https://pokeapi.co/api/v2/pokemon/4/' },
+    { name: 'squirtle', url: 'https://pokeapi.co/api/v2/pokemon/7/' },
+    { name: 'eevee', url: 'https://pokeapi.co/api/v2/pokemon/133/' },
+    { name: 'charizard', url: 'https://pokeapi.co/api/v2/pokemon/6/' },
+    { name: 'mewtwo', url: 'https://pokeapi.co/api/v2/pokemon/150/' }
+];
+
 async function fetchPokemonList() {
-    // Disabled since sidebar list is removed
+    if (!pokemonListContainer) return;
+    
+    if (currentOffset === 0) {
+        totalPokemon = 1302;
+        renderSidebarList(FEATURED_POKEMON);
+        updatePaginationControls();
+        return;
+    }
+
+    pokemonListContainer.innerHTML = '<div class="spinner"></div>';
+    const data = await getPokemonList(ITEMS_PER_PAGE, currentOffset);
+    if (!data) return;
+    
+    totalPokemon = data.count;
+    renderSidebarList(data.results);
+    updatePaginationControls();
 }
 
 function changePage(direction) {
-    // Disabled since sidebar list is removed
+    const newOffset = currentOffset + (direction * ITEMS_PER_PAGE);
+    if (newOffset >= 0 && newOffset < totalPokemon) {
+        currentOffset = newOffset;
+        fetchPokemonList();
+    }
 }
 
 // --- UI Update Functions ---
 
 function displayPokemon(data, speciesData) {
     // Basic Info
-    pokemonName.textContent = data.name;
+    pokemonName.textContent = data.name.toUpperCase();
     pokemonId.textContent = `#${data.id.toString().padStart(3, '0')}`;
     
     // Category & Description
-    let category = 'Unknown Pokémon';
-    let description = 'No description available.';
+    let category = 'Pokémon';
     if (speciesData) {
         const genusEntry = speciesData.genera.find(g => g.language.name === 'en');
         if (genusEntry) category = genusEntry.genus;
-        
-        const flavorEntry = speciesData.flavor_text_entries.find(f => f.language.name === 'en');
-        if (flavorEntry) {
-            description = flavorEntry.flavor_text.replace(/[\n\f]/g, ' ');
-        }
     }
     pokemonCategory.textContent = category;
-    const descEl = document.getElementById('pokemon-description');
-    if (descEl) descEl.textContent = description;
 
     // Image
     const imageUrl = data.sprites.other?.['official-artwork']?.front_default || data.sprites.front_default;
@@ -254,8 +276,8 @@ function displayPokemon(data, speciesData) {
     pokemonImage.alt = data.name;
 
     // Dimensions
-    pokemonHeight.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg> ${(data.height / 10).toFixed(1)} m`;
-    pokemonWeight.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> ${(data.weight / 10).toFixed(1)} kg`;
+    pokemonHeight.textContent = `${(data.height / 10).toFixed(1)} m`;
+    pokemonWeight.textContent = `${(data.weight / 10).toFixed(1)} kg`;
 
     displayTypes(data.types);
     displayStats(data.stats);
@@ -270,149 +292,171 @@ function displayTypes(types) {
     types.forEach(t => {
         const name = t.type.name;
         const badge = document.createElement('span');
-        badge.className = 'type-badge';
-        badge.textContent = name;
-        badge.style.backgroundColor = `var(--type-${name}, #fff)`;
+        badge.className = 'type-badge-exact';
+        badge.innerHTML = `
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+            <span>${name.toUpperCase()}</span>
+        `;
         pokemonTypes.appendChild(badge);
     });
 }
 
 function displayStats(stats) {
     pokemonStats.innerHTML = '';
-    const nameMap = {
-        'hp': 'HP', 'attack': 'ATK', 'defense': 'DEF',
-        'special-attack': 'SPA', 'special-defense': 'SPD', 'speed': 'SPE'
+    const statConfig = {
+        'hp': { label: 'HP', color: '#22c55e' },
+        'attack': { label: 'Attack', color: '#f97316' },
+        'defense': { label: 'Defense', color: '#eab308' },
+        'special-attack': { label: 'Sp. Attack', color: '#38bdf8' },
+        'special-defense': { label: 'Sp. Defense', color: '#06b6d4' },
+        'speed': { label: 'Speed', color: '#a855f7' }
     };
-    const MAX_STAT = 200; 
+    const MAX_VISUAL_STAT = 130; 
 
     stats.forEach(s => {
+        const config = statConfig[s.stat.name] || { label: s.stat.name, color: 'var(--text-yellow)' };
         const val = s.base_stat;
-        const name = nameMap[s.stat.name] || s.stat.name;
-        const pct = Math.min(100, (val / MAX_STAT) * 100);
-        
-        let color = 'var(--type-fire)'; 
-        if (val >= 100) color = 'var(--type-grass)';
-        else if (val >= 60) color = 'var(--type-electric)';
-        else color = 'var(--pokedex-red)';
+        const pct = Math.min(100, Math.max(10, (val / MAX_VISUAL_STAT) * 100));
         
         const row = document.createElement('div');
-        row.className = 'stat-row';
+        row.className = 'stat-row-exact';
         row.innerHTML = `
-            <span class="stat-name">${name}</span>
-            <div class="stat-bar-container">
-                <div class="stat-bar" style="width: 0%; background-color: ${color}"></div>
+            <span class="stat-name-exact">${config.label}</span>
+            <div class="stat-bar-container-exact">
+                <div class="stat-bar-exact" style="width: 0%; background-color: ${config.color}"></div>
             </div>
-            <span class="stat-value">${val}</span>
+            <span class="stat-val-exact">${val}</span>
         `;
         pokemonStats.appendChild(row);
 
         setTimeout(() => {
-            const bar = row.querySelector('.stat-bar');
+            const bar = row.querySelector('.stat-bar-exact');
             if (bar) bar.style.width = `${pct}%`;
         }, 50);
     });
 }
 
-async function displayAbilities(abilities) {
+function displayAbilities(abilities) {
     const pillsContainer = document.getElementById('pokemon-ability-pills');
-    const descContainer = document.getElementById('pokemon-ability-desc');
-    if (!pillsContainer || !descContainer) return;
-
+    if (!pillsContainer) return;
     pillsContainer.innerHTML = '';
-    descContainer.innerHTML = '';
 
-    const abilityPromises = abilities.map(async (a) => {
-        let pillName = a.ability.name.replace(/-/g, ' ');
-        if (a.is_hidden) pillName += ' (Hidden)';
-        
-        let descText = 'No description available.';
-        try {
-            const res = await fetch(a.ability.url);
-            const data = await res.json();
-            const effectEntry = data.effect_entries.find(e => e.language.name === 'en');
-            if (effectEntry) {
-                descText = effectEntry.short_effect;
-            } else {
-                const flavorEntry = data.flavor_text_entries.find(f => f.language.name === 'en');
-                if (flavorEntry) descText = flavorEntry.flavor_text.replace(/[\n\f]/g, ' ');
-            }
-        } catch(e) { console.error(e); }
+    abilities.forEach(a => {
+        let name = a.ability.name.replace(/-/g, ' ');
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        if (a.is_hidden) name += ' (Hidden)';
 
-        return { name: pillName, desc: descText };
-    });
-
-    const detailedAbilities = await Promise.all(abilityPromises);
-    
-    detailedAbilities.forEach(a => {
         const pill = document.createElement('div');
-        pill.className = 'ability-pill';
-        pill.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"></path></svg> ${a.name}`;
+        pill.className = 'ability-pill-exact';
+        pill.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+            <span>${name}</span>
+        `;
         pillsContainer.appendChild(pill);
-
-        const descItem = document.createElement('div');
-        descItem.className = 'ability-desc-item';
-        descItem.innerHTML = `<h4>${a.name}</h4><p>${a.desc}</p>`;
-        descContainer.appendChild(descItem);
     });
 }
 
-async function displayMoves(moves) {
+const SIGNATURE_MOVES = {
+    '25': ['thunder-shock', 'iron-tail', 'quick-attack', 'electro-ball']
+};
+
+function displayMoves(moves) {
     if (!pokemonMoves) return;
     pokemonMoves.innerHTML = '';
-    const displayed = moves.slice(0, 5); // display top 5
+    
+    let moveList = moves.map(m => m.move.name);
+    if (activePokemonId && SIGNATURE_MOVES[activePokemonId]) {
+        const preferred = SIGNATURE_MOVES[activePokemonId];
+        const matched = preferred.filter(p => moveList.includes(p));
+        const others = moveList.filter(m => !preferred.includes(m));
+        moveList = [...matched, ...others];
+    }
+    
+    // Top 4 moves for 2x2 grid
+    const displayed = moveList.slice(0, 4);
     if (!displayed.length) {
-        pokemonMoves.innerHTML = '<span>No moves.</span>';
+        pokemonMoves.innerHTML = '<span class="move-item-exact">No moves listed</span>';
         return;
     }
 
-    const movePromises = displayed.map(async (m) => {
-        try {
-            const res = await fetch(m.move.url);
-            const data = await res.json();
-            return {
-                name: data.name.replace(/-/g, ' '),
-                type: data.type.name,
-                power: data.power || '—',
-                accuracy: data.accuracy ? `${data.accuracy}%` : '—'
-            };
-        } catch(e) {
-            return {
-                name: m.move.name.replace(/-/g, ' '),
-                type: 'normal',
-                power: '—',
-                accuracy: '—'
-            };
-        }
-    });
+    displayed.forEach(name => {
+        let moveName = name.replace(/-/g, ' ');
+        moveName = moveName.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
-    const detailedMoves = await Promise.all(movePromises);
-
-    detailedMoves.forEach(m => {
-        const row = document.createElement('div');
-        row.className = 'move-row';
-        row.innerHTML = `
-            <div class="move-name-col">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="var(--text-yellow)" stroke="none"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"></path></svg>
-                <span>${m.name}</span>
-            </div>
-            <div class="move-type-pill" style="background-color: var(--type-${m.type}, #A8A878)">${m.type}</div>
-            <div class="move-power">Power: ${m.power}</div>
-            <div class="move-acc">Accuracy: ${m.accuracy}</div>
+        const item = document.createElement('div');
+        item.className = 'move-item-exact';
+        item.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+            <span>${moveName}</span>
         `;
-        pokemonMoves.appendChild(row);
+        pokemonMoves.appendChild(item);
     });
 }
 
-function renderSidebarList(results) {
-    // Disabled since sidebar list is removed
+// Map known Pokemon IDs to their signature theme color
+const POKEMON_ID_COLORS = {
+    '1': '#7AC74C',  // Bulbasaur
+    '2': '#7AC74C',  // Ivysaur
+    '3': '#7AC74C',  // Venusaur
+    '4': '#EE8130',  // Charmander
+    '5': '#EE8130',  // Charmeleon
+    '6': '#EE8130',  // Charizard
+    '7': '#6390F0',  // Squirtle
+    '8': '#6390F0',  // Wartortle
+    '9': '#6390F0',  // Blastoise
+    '25': '#FFCB05', // Pikachu
+    '133': '#C69D7A', // Eevee
+    '150': '#A33EA1', // Mewtwo
+};
+
+async function renderSidebarList(results) {
+    if (!pokemonListContainer) return;
+    pokemonListContainer.innerHTML = '';
+    
+    for (const p of results) {
+        const urlParts = p.url.split('/');
+        const id = urlParts[urlParts.length - 2];
+        const paddedId = id.padStart(3, '0');
+        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        const idColor = POKEMON_ID_COLORS[id] || 'var(--text-yellow)';
+
+        const card = document.createElement('div');
+        card.className = 'list-card';
+        card.dataset.id = id;
+        if (id === activePokemonId) card.classList.add('active');
+        
+        card.innerHTML = `
+            <img src="${imageUrl}" alt="${p.name}" loading="lazy" onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'">
+            <span class="list-id" style="color: ${idColor}">#${paddedId}</span>
+            <span class="list-name">${p.name}</span>
+        `;
+        
+        card.addEventListener('click', () => {
+            fetchAndDisplayPokemon(id);
+        });
+        
+        pokemonListContainer.appendChild(card);
+    }
 }
 
 function updateSidebarActiveState() {
-    // Disabled since sidebar list is removed
+    if (!pokemonListContainer) return;
+    const cards = pokemonListContainer.querySelectorAll('.list-card');
+    cards.forEach(c => {
+        if (c.dataset.id === activePokemonId) {
+            c.classList.add('active');
+            c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+            c.classList.remove('active');
+        }
+    });
 }
 
 function updatePaginationControls() {
-    // Disabled since sidebar list is removed
+    if (prevBtn) prevBtn.disabled = currentOffset === 0;
+    if (nextBtn) nextBtn.disabled = currentOffset + ITEMS_PER_PAGE >= totalPokemon;
+    if (prevBtn) prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+    if (nextBtn) nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
 }
 
 // --- Utility Functions ---
