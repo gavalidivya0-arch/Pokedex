@@ -84,6 +84,17 @@ function setupExploreListeners() {
     exploreSearchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') applyFilters();
     });
+    
+    // Filter in real-time as the user types
+    exploreSearchInput.addEventListener('input', () => {
+        applyFilters();
+    });
+
+    // Make the search icon button clickable
+    const exploreSearchBtn = document.querySelector('.explore-search .search-icon-btn');
+    if (exploreSearchBtn) {
+        exploreSearchBtn.addEventListener('click', applyFilters);
+    }
 
     sortSelect.addEventListener('change', (e) => {
         exploreState.sortBy = e.target.value;

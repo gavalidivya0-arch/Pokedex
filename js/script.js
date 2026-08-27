@@ -100,6 +100,16 @@ function setupEventListeners() {
     // Navbar Actions
     if(navSearchBtn) {
         navSearchBtn.addEventListener('click', () => {
+            // Switch to Home view first
+            document.getElementById('explore-view').classList.add('hidden');
+            document.getElementById('features-view').classList.add('hidden');
+            document.getElementById('about-view').classList.add('hidden');
+            document.getElementById('home-view').classList.remove('hidden');
+            
+            // Update nav active state
+            navLinks.forEach(l => l.classList.remove('active'));
+            navLinks[0].classList.add('active'); // Home link
+            
             searchInput.focus();
         });
     }
