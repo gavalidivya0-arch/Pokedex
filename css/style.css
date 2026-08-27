@@ -1186,6 +1186,11 @@ button {
     color: var(--text-secondary);
 }
 
+.explore-search {
+    width: 100%;
+    position: relative;
+}
+
 .explore-search input {
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
