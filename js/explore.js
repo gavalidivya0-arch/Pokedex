@@ -116,6 +116,7 @@ function renderTypeFilters() {
         const btn = document.createElement('button');
         btn.className = 'type-filter-btn';
         btn.dataset.type = type;
+        btn.style.borderColor = typeColors[type];
         
         const icon = document.createElement('span');
         icon.className = 'type-filter-icon';
@@ -123,15 +124,26 @@ function renderTypeFilters() {
         
         const text = document.createElement('span');
         text.textContent = type;
+        text.style.color = '#fff';
         
         btn.appendChild(icon);
         btn.appendChild(text);
         
         btn.addEventListener('click', () => {
             // toggle selection
-            document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            exploreState.filters.type = type;
+            const wasSelected = btn.classList.contains('selected');
+            document.querySelectorAll('.type-filter-btn').forEach(b => {
+                b.classList.remove('selected');
+                b.style.backgroundColor = 'transparent';
+            });
+            
+            if (!wasSelected) {
+                btn.classList.add('selected');
+                btn.style.backgroundColor = typeColors[type] + '20'; // 20 hex for 12.5% opacity
+                exploreState.filters.type = type;
+            } else {
+                exploreState.filters.type = 'all';
+            }
             applyFilters();
         });
         

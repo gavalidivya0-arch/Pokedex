@@ -1026,18 +1026,19 @@ button {
     background-color: var(--card-bg);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
+    padding: 1.5rem 2rem 1.5rem 1.5rem; /* Added right padding to create space from scrollbar */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     overflow-y: auto;
 }
-.filters-sidebar::-webkit-scrollbar { width: 4px; }
+.filters-sidebar::-webkit-scrollbar { width: 6px; }
+.filters-sidebar::-webkit-scrollbar-track { background: transparent; }
 .filters-sidebar::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
 
 .filters-sidebar h3 {
     color: var(--text-yellow);
-    font-size: 1rem;
+    font-size: 1.1rem;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
@@ -1085,39 +1086,40 @@ button {
 .type-filter-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 0.4rem 0.5rem;
+    gap: 8px;
+    padding: 0.5rem 0.75rem;
     background-color: transparent;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    font-size: 0.75rem;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
     font-weight: 500;
     text-transform: capitalize;
+    transition: var(--transition);
 }
-.type-filter-btn.selected {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-color: var(--text-secondary);
+.type-filter-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .type-filter-icon {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     display: inline-block;
 }
 
 .more-btn {
     background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 0.4rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
+    border: 1px solid #A33EA1;
+    color: white;
+    padding: 0.6rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
     width: 100%;
+    margin-top: 0.5rem;
+    transition: var(--transition);
 }
-.more-btn:hover { background-color: rgba(255,255,255,0.05); }
+.more-btn:hover { background-color: rgba(163, 62, 161, 0.1); }
 
 .filter-actions {
     display: flex;
